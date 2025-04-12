@@ -1,0 +1,9 @@
+torch
+huggingface_hub
+pyconll==3.2.0
+ufal.udpipe==1.3.1.1
+coloredlogs==15.0.1
+jellyfish==1.0.3
+jsonpickle==3.0.4
+six
+rusyllab @ file:///media/inkoziev/polygon/github/rusyllab
