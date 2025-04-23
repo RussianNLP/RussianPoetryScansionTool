@@ -24,7 +24,7 @@ import logging
 import re
 import huggingface_hub
 
-from accentuator import AccentuatorWrapper
+from .accentuator import AccentuatorWrapper
 
 import rusyllab
 
@@ -1597,6 +1597,30 @@ def rhymed2(accentuator, word1, stress1, ud_tags1, unstressed_prefix1, unstresse
 
 fuzzy_ending_pairs0 = [
     #(r'\^эсна', r'\^эстна'), # интересно - честно
+    (r'\^ось', r'\^ос'),  # xword1=павил^ось xword2=^ос  word1=повелось word2=ос
+    (r'\^ольнэ', r'\^ольний'),  # xword1=аг^ольнэ xword2=прык^ольний  word1=огольне word2=прикольней
+    (r'\^анка', r'\^анга'),  # xword1=т^анка xword2=т^анга  word1=танка word2=танго
+    (r'\^обыя', r'\^обые'),  # xword1=надгр^обыя xword2=напад^обые  word1=надгробия word2=наподобие
+    (r'\^алыи', r'\^алыю'),  # xword1=г^алыи xword2=ит^алыю  word1=галлии word2=италию
+    (r'\^обэа', r'\^обыя'),  # xword1=утр^обэа xword2=надгр^обыя  word1=утробе word2=надгробия
+    (r'\^ылась', r'\^ылас'),  # xword1=папрас^ылась xword2=с^ылас  word1=попросилась word2=силос
+    (r'\^олкы', r'\^олкай'),  # xword1=в^олкы xword2=двухств^олкай  word1=волки word2=двухстволкой
+    (r'\^ушкай', r'\^ушкы'),  # xword1=кук^ушкай xword2=падр^ушкы  word1=кукушкой word2=подружки
+    (r'\^а([:C:])га', r'\^а[:1:]ка'),  # xword1=муст^анга xword2=т^анка  word1=мустанга word2=танка
+    (r'\^у([:C:])ана', r'\^у[:1:]ына'),  # xword1=праг^улана xword2=баб^улына  word1=прогуляно word2=бабулино
+    (r'\^эда', r'\^эта'),  # xword1=тал^эда xword2=стал^эта  word1=толедо word2=столе
+    (r'\^ыфнам', '\^ывнам'),  # xword1=заприт^ыфнам xword2=кумулат^ывнам  word1=запретив word2=кумулятивном
+    (r'\^ыдцать', r'\^ыца'),  # word1=тридцать xword1=тр^ыдцать clausula1=^ыдцать  word2=бриться xword2=бр^ыца clausula2=^ыца
+    (r'\^азга', r'\^аска'),  # word1=лязга xword1=л^азга clausula1=^азга  word2=вязко xword2=в^аска clausula2=^аска
+    (r'([:C:])\^эдный', r'[:1:]\^эды'),  # word1=последний xword1=пасл^эдный clausula1=^эдный  word2=леди xword2=л^эды clausula2=^эды
+    (r'\^янам', r'\^анаф'),  # xword1=изъ^янам xword2=витир^анаф  word1=изъянам word2=ветеранов
+    (r'\^ымасть', r'\^ыма'),  # word1=ранимость xword1=ран^ымасть clausula1=^ымасть  word2=мимо xword2=м^ыма clausula2=^ыма
+    (r'\^оца', r'\^о[тд]ца'),  # xword1=касн^оца xword2=кал^одца  word1=коснётся word2=колодца
+    (r'\^яны', r'\^аный'),  # xword1=изъ^яны xword2=жил^аный  word1=изъяны word2=желанный
+    (r'\^ыслам', r'\^ыслы'),  # xword1=карам^ыслам xword2=пав^ыслы  word1=коромыслом word2=повисли
+    (r'\^эздна', r'\^эзн[ыу]'),  # xword1=б^эздна xword2=биспал^эзны  word1=бездна word2=бесполезны
+    (r'\^о([:C:])аха', r'\^о[:1:]уха'),  # word1=промаха xword1=пр^омаха clausula1=^омаха  word2=черёмуха xword2=чир^омуха clausula2=^омуха
+    (r'а\^аца', r'\^ядцы'),  # word1=таятся xword1=та^аца clausula1=^аца  word2=тунеядцы xword2=туни^ядцы clausula2=^ядцы
     (r'\^а([:C:])кэ', r'\^а[:1:]ках'),  # word1=стакашке xword1=стак^ашкэ clausula1=^ашкэ  word2=ромашках xword2=рам^ашках clausula2=^ашках
     (r'м\^ая', r'м\^ают'),  # word1=прямая xword1=прам^ая clausula1=^ая  word2=понимают xword2=паным^ают clausula2=^ают
     (r'ч\^асье', r'щ\^астья'),  # word1=одночасье xword1=аднач^асье clausula1=^асье  word2=счастья xword2=щ^астья clausula2=^астья

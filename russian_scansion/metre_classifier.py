@@ -12,8 +12,7 @@ from typing import Set, List, Dict, Tuple
 import jsonpickle
 import logging
 
-from phonetic import Accents, rhymed
-import emoji
+from .emoji import EMOJI_SEQUENCE
 
 
 CYRRILIC_LOWER_VOWELS = "аоэиуыеёюя"
@@ -302,7 +301,7 @@ def get_syllables(word: str) -> List[Syllable]:
             number += 1
             begin = i+1
             continue
-        elif re.match(rf'^([_]|{generative_poetry.emoji.EMOJI_SEQUENCE})$', ch) is not None:
+        elif re.match(rf'^([_]|{EMOJI_SEQUENCE})$', ch) is not None:
             # Всякие эмодзи, подчеркивания, которые мы будем выделять в отдельный слог.
             if begin != i:
                 # закрываем предыдущий слог для случая человек🙈
@@ -1212,6 +1211,8 @@ class MetreClassifierAdapter:
 
 
 if __name__ == '__main__':
+    from phonetic import Accents, rhymed
+
     tmp_dir = '../../tmp'
     accentuator = Accents()
     accentuator.load_pickle(os.path.join(tmp_dir, 'accents.pkl'))
