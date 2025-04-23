@@ -6,4 +6,5 @@ coloredlogs==15.0.1
 jellyfish==1.0.3
 jsonpickle==3.0.4
 six
-rusyllab @ file:///media/inkoziev/polygon/github/rusyllab
+numpy
+rusyllab @ git+https://github.com/Koziev/rusyllab
