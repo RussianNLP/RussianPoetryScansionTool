@@ -32,7 +32,7 @@ pip install .
 import russian_scansion
 
 
-tool = russian_scansion.create_rpst_instance('models/extraction/directory')
+tool = russian_scansion.create_rpst_instance()
 
 poem = """Вменяйте ж мне в вину, что я столь мал,
 Чтоб за благодеянья Вам воздать,
